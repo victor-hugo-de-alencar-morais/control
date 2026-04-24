@@ -5,7 +5,7 @@ import {
     DrawerItemList
 } from "@react-navigation/drawer";
 
-import{
+import {
     View,
     Text,
     Image,
@@ -13,7 +13,7 @@ import{
     TouchableOpacity
 } from "react-native";
 
-import {Ionicons} from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 import HomeScreen from "../screens/HomeScreen";
 import EntidadeScreen from "../screens/EntidadeScreen";
@@ -24,72 +24,139 @@ const Drawer = createDrawerNavigator();
 
 function CustomDrawerContent(props: any) {
     const user = {
-        nome:"joão silva",
+        nome: "João Silva",
         foto: "https://i.pravatar.cc/100"
     };
 
     return (
-        <View style={StyleSheet.container}>
+        <View style={styles.container}>
 
-        <DrawerContentScrollView {...props}>
+            <DrawerContentScrollView {...props}>
+                <View style={styles.header}>
+                    <Image 
+                        source={{ uri: user.foto }}
+                        style={styles.avatar}
+                    />
+                    <Text style={styles.name}>
+                        {user.nome}
+                    </Text>
+                </View>
 
-        <View style={StyleSheet.header}>
+                <DrawerItemList {...props} />
+            </DrawerContentScrollView>
 
-        <Image 
-        source={{uri: user.foto}}
-        style={StyleSheet.avatar}
-        />
-
-        <Text style={StyleSheet.name}>
-        {user.nome}
-        </Text>
-
-        </View>
-
-         <DrawerItemList {...props} />
-
-        </DrawerContentScrollView>
-        <View style={styles.footer}>
-
-        <TouchableOpacity
-        style={StyleSheet.logoutButton}
-        onPress={() => console.log("logout")}
-        >
-
-        <Ionicons name="log-out-outline" size={22} color='#fff' />
-
-        <Text style={StyleSheet.logoutText}>
-            Deslogar 
-        </Text>
-
-        </TouchableOpacity>
-
-        </View>
+            <View style={styles.footer}>
+                <TouchableOpacity
+                    style={styles.logoutButton}
+                    onPress={() => console.log("logout")}
+                >
+                    <Ionicons name="log-out-outline" size={22} color='#fff' />
+                    <Text style={styles.logoutText}>
+                        Deslogar 
+                    </Text>
+                </TouchableOpacity>
+            </View>
 
         </View>
     );
 }
 
-    export default function DrawerRoutes() {
-        return (
-            <Drawer.Navigator 
-            drawerContent={(props) => <CustomDrawerContentContent {...props} />}
+export default function DrawerRoutes() {
+    return (
+        <Drawer.Navigator
+            drawerContent={(props) => <CustomDrawerContent {...props} />}
             screenOptions={{
                 headerStyle: {
                     backgroundColor: "#fff",
                 },
-                    headerTintColor:"#fff",
-                    drawerActiveTintColor:"#1E88E5"
+                headerTintColor: "#fff",
+                drawerActiveTintColor: "#1E88E5"
             }}
-            >
-
+        >
             <Drawer.Screen 
-            name="Home"
-            component={HomeScreen}
-            options={{
-                drawerIcon: ({color, size}) => (
-                    <Ionicons name="home-outline" size={size}
-                )
-            }}
-        )
+                name="Home"
+                component={HomeScreen}
+                options={{
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="home-outline" size={size} color={color} />
+                    )
+                }}
+            />
+            <Drawer.Screen
+                name="Entidade"
+                component={EntidadeScreen}
+                options={{
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="person-add" size={size} color={color} />
+                    )
+                }}
+            />
+            <Drawer.Screen
+                name="Contas a fechar"
+                component={ContasReceberScreen}
+                options={{
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="wallet-outline" size={size} color={color} />
+                    )
+                }}
+            />
+            <Drawer.Screen
+                name="Contas a pagar"
+                component={ContasPagarScreen}
+                options={{
+                    drawerIcon: ({ color, size }) => (
+                        <Ionicons name="cash-outline" size={size} color={color} />
+                    )
+                }}
+            />
+        </Drawer.Navigator>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    },
+    header: {
+        padding: 25,
+        backgroundColor: "#1E88E5",
+        alignItems: "center"
+    },
+
+    avatar:{
+        width:80,
+        height:80,
+        borderRadius:40,
+        marginBottom:10
+    },
+
+    name:{
+        color:"#fff",
+        fontSize:18,
+        fontWeight:"bold"
+    },
+
+    footer:{
+        padding:15,
+        paddingBottom:35,
+        borderTopWidth:1,
+        borderColor:"#eee"
+    },
+
+    logoutButton:{
+        backgroundColor: "#E53935",
+        padding:15,
+        borderRadius:10,
+        alignItems:"center",
+        flexDirection:"row",
+        justifyContent:"center",
+        gap:8
+    },
+
+    logoutText:{
+        color:"#fff",
+        fontSize:16,
+        fontWeight:"bold"
     }
+
+});
