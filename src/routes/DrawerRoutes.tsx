@@ -1,162 +1,49 @@
-import React from "react";
-import {
-    createDrawerNavigator,
-    DrawerContentScrollView,
-    DrawerItemList
-} from "@react-navigation/drawer";
-
-import {
-    View,
-    Text,
-    Image,
-    StyleSheet,
-    TouchableOpacity
-} from "react-native";
-
-import { Ionicons } from "@expo/vector-icons";
-
-import HomeScreen from "../screens/HomeScreen";
-import EntidadeScreen from "../screens/EntidadeScreen";
-import ContasReceberScreen from "../screens/ContasReceberScreen";
-import ContasPagarScreen from "../screens/ContasPagarScreen";
+import { createDrawerNavigator } from '@react-navigation/drawer';
+// Importe as novas telas aqui
+import HomeScreen from '../screens/HomeScreen';
+import ContasPagarScreen from '../screens/ContasPagarScreen';
+import ContasReceberScreen from '../screens/ContasReceberScreen';
+import EntidadeScreen from '../screens/EntidadeScreen';
+import AboutScreen from '../screens/AboutScreen';
 
 const Drawer = createDrawerNavigator();
 
-function CustomDrawerContent(props: any) {
-    const user = {
-        nome: "João Silva",
-        foto: "https://i.pravatar.cc/100"
-    };
-
-    return (
-        <View style={styles.container}>
-
-            <DrawerContentScrollView {...props}>
-                <View style={styles.header}>
-                    <Image 
-                        source={{ uri: user.foto }}
-                        style={styles.avatar}
-                    />
-                    <Text style={styles.name}>
-                        {user.nome}
-                    </Text>
-                </View>
-
-                <DrawerItemList {...props} />
-            </DrawerContentScrollView>
-
-            <View style={styles.footer}>
-                <TouchableOpacity
-                    style={styles.logoutButton}
-                    onPress={() => console.log("logout")}
-                >
-                    <Ionicons name="log-out-outline" size={22} color='#fff' />
-                    <Text style={styles.logoutText}>
-                        Deslogar 
-                    </Text>
-                </TouchableOpacity>
-            </View>
-
-        </View>
-    );
-}
-
 export default function DrawerRoutes() {
-    return (
-        <Drawer.Navigator
-            drawerContent={(props) => <CustomDrawerContent {...props} />}
-            screenOptions={{
-                headerStyle: {
-                    backgroundColor: "#fff",
-                },
-                headerTintColor: "#fff",
-                drawerActiveTintColor: "#1E88E5"
-            }}
-        >
-            <Drawer.Screen 
-                name="Home"
-                component={HomeScreen}
-                options={{
-                    drawerIcon: ({ color, size }) => (
-                        <Ionicons name="home-outline" size={size} color={color} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="Entidade"
-                component={EntidadeScreen}
-                options={{
-                    drawerIcon: ({ color, size }) => (
-                        <Ionicons name="person-add" size={size} color={color} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="Contas a fechar"
-                component={ContasReceberScreen}
-                options={{
-                    drawerIcon: ({ color, size }) => (
-                        <Ionicons name="wallet-outline" size={size} color={color} />
-                    )
-                }}
-            />
-            <Drawer.Screen
-                name="Contas a pagar"
-                component={ContasPagarScreen}
-                options={{
-                    drawerIcon: ({ color, size }) => (
-                        <Ionicons name="cash-outline" size={size} color={color} />
-                    )
-                }}
-            />
-        </Drawer.Navigator>
-    );
+  return (
+    <Drawer.Navigator 
+      screenOptions={{ 
+        headerShown: true,
+        // Estilo do cabeçalho (Top Bar)
+        headerStyle: {
+          backgroundColor: '#121212', 
+          borderBottomWidth: 1,
+          borderBottomColor: '#333',
+        },
+        headerTintColor: '#FFFFFF', // Cor do ícone hamburguer e título
+
+        // Estilo da "gaveta" (a barra lateral em si)
+        drawerStyle: {
+          backgroundColor: '#121212',
+          width: 280,
+        },
+
+        // Cores dos itens do menu
+        drawerActiveTintColor: '#1E90FF',   // Cor do texto/ícone quando selecionado
+        drawerInactiveTintColor: '#B0B0B0', // Cor do texto/ícone quando parado
+        drawerActiveBackgroundColor: '#1E1E1E', // Fundo do item selecionado
+        
+        // Estilo do label (texto)
+        drawerLabelStyle: {
+          fontSize: 16,
+          fontWeight: '600',
+        },
+      }}
+    >
+      <Drawer.Screen name="Home" component={HomeScreen} options={{ title: 'Início' }} />
+      <Drawer.Screen name="Entidades" component={EntidadeScreen} options={{ title: 'Entidades' }} />
+      <Drawer.Screen name="ContasPagar" component={ContasPagarScreen} options={{ title: 'Contas a Pagar' }} />
+      <Drawer.Screen name="ContasReceber" component={ContasReceberScreen} options={{ title: 'Contas a Receber' }} />
+      <Drawer.Screen name="Sobre" component={AboutScreen} options={{ title: 'Sobre o App' }} />
+    </Drawer.Navigator>
+  );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    header: {
-        padding: 25,
-        backgroundColor: "#1E88E5",
-        alignItems: "center"
-    },
-
-    avatar:{
-        width:80,
-        height:80,
-        borderRadius:40,
-        marginBottom:10
-    },
-
-    name:{
-        color:"#fff",
-        fontSize:18,
-        fontWeight:"bold"
-    },
-
-    footer:{
-        padding:15,
-        paddingBottom:35,
-        borderTopWidth:1,
-        borderColor:"#eee"
-    },
-
-    logoutButton:{
-        backgroundColor: "#E53935",
-        padding:15,
-        borderRadius:10,
-        alignItems:"center",
-        flexDirection:"row",
-        justifyContent:"center",
-        gap:8
-    },
-
-    logoutText:{
-        color:"#fff",
-        fontSize:16,
-        fontWeight:"bold"
-    }
-
-});
