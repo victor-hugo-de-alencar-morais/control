@@ -2,14 +2,17 @@ const { getDefaultConfig } = require('expo/metro-config');
 
 const config = getDefaultConfig(__dirname);
 
-// Força o Metro a usar o perfil "default" (JSC) em vez de Hermes para web
-config.transformer.getTransformOptions = async () => ({
+
+config.transformer.getTransformOptions = () => ({
   transform: {
     experimentalImportSupport: false,
     inlineRequires: false,
-    engine: 'jsc',           // sobrescreve qualquer herança de Hermes
+    engine: 'jsc',
     hermesParser: false,
   },
 });
+
+
+config.transformer.assetPlugins = [];
 
 module.exports = config;

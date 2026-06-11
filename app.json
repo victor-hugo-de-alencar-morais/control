@@ -24,12 +24,17 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "jsEngine": "jsc",
+      "newArchEnabled": false
     },
     "extra": {
       "eas": {
         "projectId": "9139fd2a-7a4e-48fd-b830-f81b9e182c9a"
       }
-    }
+    },
+    "plugins": [
+      "expo-status-bar"
+    ]
   }
 }
