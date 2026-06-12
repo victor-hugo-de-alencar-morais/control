@@ -23,7 +23,7 @@ export default function AboutScreen() {
 
       {/* Card de informações */}
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>📱 Controle Financeiro</Text>
+        <Text style={styles.cardTitle}> Controle Financeiro</Text>
         <Text style={styles.cardText}>
           Gerencie suas finanças de forma simples e segura. Acompanhe gastos,
           defina orçamentos e alcance seus objetivos financeiros.
