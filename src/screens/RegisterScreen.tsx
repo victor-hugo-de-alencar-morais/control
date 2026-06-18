@@ -21,7 +21,7 @@ export default function RegisterScreen() {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleRegister = () => {
-    // Aqui você adicionará a lógica para salvar no banco futuramente
+    // adicionará a lógica para salvar no banco futuramente
     console.log('Registrando:', { name, email, password });
   };
 
